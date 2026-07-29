@@ -17,8 +17,10 @@ test("server-renders Adrian's portfolio", async () => {
   assert.equal(response.status, 200);
   assert.match(response.headers.get("content-type") ?? "", /^text\/html\b/i);
   const html = await response.text();
-  assert.match(html, /<title>Adrian Gomez/);
-  assert.match(html, /I BUILD/);
+  assert.match(html, /<title>HOWL \/ Signal Core/);
+  assert.match(html, /HOWL/);
+  assert.match(html, /SIGNAL/);
+  assert.match(html, /CORE\./);
   assert.match(html, /Omniscius/);
   assert.match(html, /BBEAT/);
   assert.match(html, /adriangcpy@gmail\.com/);

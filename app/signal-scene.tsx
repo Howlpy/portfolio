@@ -3,85 +3,131 @@
 import { useEffect, useRef } from "react";
 import * as THREE from "three";
 
+function signalArc(seed: number, material: THREE.LineBasicMaterial) {
+  const points: THREE.Vector3[] = [];
+  const angle = seed * 1.91;
+  const end = new THREE.Vector3(Math.cos(angle) * 2.6, Math.sin(angle * 1.3) * 1.8, Math.sin(angle) * 1.5);
+  for (let i = 0; i < 13; i++) {
+    const t = i / 12;
+    const jitter = i === 0 || i === 12 ? 0 : Math.sin(i * 19.7 + seed) * 0.13;
+    points.push(new THREE.Vector3(end.x * t + jitter, end.y * t - jitter * .6, end.z * t + jitter * .4));
+  }
+  return new THREE.Line(new THREE.BufferGeometry().setFromPoints(points), material);
+}
+
 export function SignalScene() {
   const mount = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const host = mount.current;
     if (!host) return;
-
-    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
     const scene = new THREE.Scene();
-    scene.fog = new THREE.FogExp2(0x070707, 0.055);
-    const camera = new THREE.PerspectiveCamera(42, innerWidth / innerHeight, 0.1, 100);
-    camera.position.set(0, 0, 8.5);
+    scene.fog = new THREE.FogExp2(0x07040d, 0.052);
+    const camera = new THREE.PerspectiveCamera(42, innerWidth / innerHeight, .1, 100);
+    camera.position.set(0, 0, 9.3);
+
     const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: !reduced, powerPreference: "high-performance" });
-    renderer.setPixelRatio(Math.min(devicePixelRatio, 1.7));
+    renderer.setPixelRatio(Math.min(devicePixelRatio, 1.65));
     renderer.setSize(innerWidth, innerHeight);
     renderer.setClearColor(0x000000, 0);
+    renderer.outputColorSpace = THREE.SRGBColorSpace;
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.toneMappingExposure = 1.25;
     host.appendChild(renderer.domElement);
 
-    const group = new THREE.Group();
-    scene.add(group);
-    const geometry = new THREE.IcosahedronGeometry(2.15, reduced ? 3 : 6);
-    const positions = geometry.attributes.position;
-    const colors = new Float32Array(positions.count * 3);
-    const lime = new THREE.Color(0xc7ff2f);
-    const cyan = new THREE.Color(0x65f4ff);
-    for (let i = 0; i < positions.count; i++) {
-      const color = i % 7 === 0 ? cyan : lime;
-      colors.set([color.r, color.g, color.b], i * 3);
+    scene.add(new THREE.AmbientLight(0x3b1b64, 2.2));
+    const ultraviolet = new THREE.PointLight(0x9b5cff, 45, 14, 1.8);
+    ultraviolet.position.set(3.2, 2.2, 4.2);
+    scene.add(ultraviolet);
+    const magenta = new THREE.PointLight(0xff3c9d, 18, 9, 2);
+    magenta.position.set(-2.5, -1.8, 2.5);
+    scene.add(magenta);
+    const rim = new THREE.DirectionalLight(0xe7d9ff, 3.2);
+    rim.position.set(-2, 4, 3);
+    scene.add(rim);
+
+    const core = new THREE.Group();
+    scene.add(core);
+    const crystalGeometry = new THREE.DodecahedronGeometry(2.08, reduced ? 1 : 2);
+    const pos = crystalGeometry.attributes.position;
+    for (let i = 0; i < pos.count; i++) {
+      const x = pos.getX(i), y = pos.getY(i), z = pos.getZ(i);
+      const warp = 1 + Math.sin(x * 3.1 + y * 4.7 + z * 2.2) * .07 + Math.sin((x - y) * 8) * .025;
+      pos.setXYZ(i, x * warp * 1.06, y * warp * .93, z * warp);
     }
-    geometry.setAttribute("color", new THREE.BufferAttribute(colors, 3));
-    const points = new THREE.Points(geometry, new THREE.PointsMaterial({
-      size: 0.024,
-      vertexColors: true,
-      transparent: true,
-      opacity: 0.86,
-      blending: THREE.AdditiveBlending,
-      depthWrite: false,
+    crystalGeometry.computeVertexNormals();
+    const crystal = new THREE.Mesh(crystalGeometry, new THREE.MeshPhysicalMaterial({
+      color: 0x160925, emissive: 0x210a3b, emissiveIntensity: .65, roughness: .18,
+      metalness: .25, transmission: .38, thickness: 2.4, ior: 1.7,
+      transparent: true, opacity: .93, flatShading: true, side: THREE.DoubleSide,
     }));
-    group.add(points);
+    crystal.rotation.set(.12, -.32, -.08);
+    core.add(crystal);
 
-    const wire = new THREE.Mesh(
-      new THREE.IcosahedronGeometry(2.17, 2),
-      new THREE.MeshBasicMaterial({ color: 0x52621c, wireframe: true, transparent: true, opacity: 0.17 })
+    const edges = new THREE.LineSegments(
+      new THREE.EdgesGeometry(crystalGeometry, 18),
+      new THREE.LineBasicMaterial({ color: 0x9b5cff, transparent: true, opacity: .42, blending: THREE.AdditiveBlending })
     );
-    group.add(wire);
+    edges.rotation.copy(crystal.rotation);
+    core.add(edges);
 
-    const ringMaterial = new THREE.MeshBasicMaterial({ color: 0xc7ff2f, wireframe: true, transparent: true, opacity: 0.18 });
-    const ring = new THREE.Mesh(new THREE.TorusGeometry(2.85, 0.006, 3, 180), ringMaterial);
-    ring.rotation.set(1.13, 0.15, 0.3);
-    group.add(ring);
-    const ringTwo = ring.clone();
-    ringTwo.scale.setScalar(0.78);
-    ringTwo.rotation.set(-0.55, 0.8, 0.2);
-    group.add(ringTwo);
+    const inner = new THREE.Mesh(
+      new THREE.IcosahedronGeometry(1.25, 2),
+      new THREE.MeshBasicMaterial({ color: 0x752ee8, wireframe: true, transparent: true, opacity: .28, blending: THREE.AdditiveBlending })
+    );
+    core.add(inner);
 
-    const starGeometry = new THREE.BufferGeometry();
-    const starCount = reduced ? 300 : 900;
-    const stars = new Float32Array(starCount * 3);
-    for (let i = 0; i < starCount; i++) {
-      const radius = 3.5 + Math.random() * 8;
-      const theta = Math.random() * Math.PI * 2;
-      stars[i * 3] = Math.cos(theta) * radius;
-      stars[i * 3 + 1] = (Math.random() - 0.5) * 10;
-      stars[i * 3 + 2] = Math.sin(theta) * radius - 2;
+    const strataMaterial = new THREE.MeshBasicMaterial({ color: 0x5c1faa, transparent: true, opacity: .095, side: THREE.DoubleSide, blending: THREE.AdditiveBlending });
+    for (let i = -6; i <= 6; i++) {
+      const width = 3.6 + Math.cos(i * .74) * .55;
+      const plate = new THREE.Mesh(new THREE.PlaneGeometry(width, width * .74), strataMaterial);
+      plate.rotation.x = Math.PI / 2;
+      plate.position.y = i * .245;
+      plate.rotation.z = -.08 + i * .008;
+      core.add(plate);
     }
-    starGeometry.setAttribute("position", new THREE.BufferAttribute(stars, 3));
-    const starField = new THREE.Points(starGeometry, new THREE.PointsMaterial({ color: 0x849d34, size: 0.015, transparent: true, opacity: 0.45 }));
-    scene.add(starField);
+
+    const arcMaterial = new THREE.LineBasicMaterial({ color: 0xb57aff, transparent: true, opacity: .65, blending: THREE.AdditiveBlending });
+    const arcs = Array.from({ length: reduced ? 3 : 8 }, (_, i) => signalArc(i + 1, arcMaterial));
+    arcs.forEach((arc) => core.add(arc));
+
+    const beamMaterial = new THREE.MeshBasicMaterial({ color: 0xd9b7ff, transparent: true, opacity: .9, blending: THREE.AdditiveBlending });
+    const beam = new THREE.Mesh(new THREE.CylinderGeometry(.014, .055, 5.3, 8), beamMaterial);
+    beam.rotation.z = -Math.PI / 2;
+    beam.position.x = 4.45;
+    beam.position.y = -.03;
+    core.add(beam);
+    const beamGlow = new THREE.Mesh(new THREE.CylinderGeometry(.08, .16, 5.3, 10), new THREE.MeshBasicMaterial({ color: 0x7b35e6, transparent: true, opacity: .09, blending: THREE.AdditiveBlending }));
+    beamGlow.rotation.copy(beam.rotation); beamGlow.position.copy(beam.position); core.add(beamGlow);
+
+    const halo = new THREE.Mesh(new THREE.TorusGeometry(2.85, .007, 3, 200), new THREE.MeshBasicMaterial({ color: 0x9b5cff, transparent: true, opacity: .22 }));
+    halo.rotation.set(1.12, .4, -.22);
+    core.add(halo);
+
+    const dustGeometry = new THREE.BufferGeometry();
+    const dustCount = reduced ? 260 : 850;
+    const dust = new Float32Array(dustCount * 3);
+    for (let i = 0; i < dustCount; i++) {
+      const radius = 3.4 + Math.random() * 8;
+      const theta = Math.random() * Math.PI * 2;
+      dust[i * 3] = Math.cos(theta) * radius;
+      dust[i * 3 + 1] = (Math.random() - .5) * 9;
+      dust[i * 3 + 2] = Math.sin(theta) * radius - 2;
+    }
+    dustGeometry.setAttribute("position", new THREE.BufferAttribute(dust, 3));
+    const dustField = new THREE.Points(dustGeometry, new THREE.PointsMaterial({ color: 0x8f55df, size: .012, transparent: true, opacity: .48 }));
+    scene.add(dustField);
 
     const pointer = new THREE.Vector2();
     const onPointer = (event: PointerEvent) => {
-      pointer.x = (event.clientX / innerWidth - 0.5) * 2;
-      pointer.y = (event.clientY / innerHeight - 0.5) * 2;
+      pointer.set((event.clientX / innerWidth - .5) * 2, (event.clientY / innerHeight - .5) * 2);
     };
     const onResize = () => {
       camera.aspect = innerWidth / innerHeight;
       camera.updateProjectionMatrix();
       renderer.setSize(innerWidth, innerHeight);
-      renderer.setPixelRatio(Math.min(devicePixelRatio, 1.7));
+      renderer.setPixelRatio(Math.min(devicePixelRatio, 1.65));
     };
     addEventListener("pointermove", onPointer, { passive: true });
     addEventListener("resize", onResize);
@@ -91,17 +137,21 @@ export function SignalScene() {
     const draw = () => {
       const time = clock.getElapsedTime();
       const scroll = scrollY / Math.max(innerHeight, 1);
-      group.position.x += ((innerWidth > 800 ? 2.25 : 0.65) - pointer.x * 0.22 - group.position.x) * 0.025;
-      group.position.y += ((innerWidth > 800 ? 0.15 : -0.25) + pointer.y * 0.15 - scroll * 0.65 - group.position.y) * 0.025;
+      const targetX = innerWidth > 800 ? 2.05 : .85;
+      core.position.x += (targetX - pointer.x * .16 - core.position.x) * .025;
+      core.position.y += ((innerWidth > 800 ? .18 : -.6) + pointer.y * .12 - scroll * .7 - core.position.y) * .025;
       if (!reduced) {
-        points.rotation.y = time * 0.075 + pointer.x * 0.08;
-        points.rotation.x = time * 0.035 - pointer.y * 0.06;
-        wire.rotation.copy(points.rotation);
-        ring.rotation.z = time * 0.045;
-        ringTwo.rotation.y = time * -0.08;
-        starField.rotation.y = time * 0.006;
+        crystal.rotation.y = -.32 + time * .045 + pointer.x * .045;
+        crystal.rotation.x = .12 + Math.sin(time * .25) * .035 - pointer.y * .03;
+        edges.rotation.copy(crystal.rotation);
+        inner.rotation.y = -time * .09;
+        inner.rotation.x = time * .045;
+        halo.rotation.z = -.22 + time * .035;
+        beamMaterial.opacity = .72 + Math.sin(time * 13.2) * .16;
+        arcMaterial.opacity = .42 + Math.sin(time * 4.7) * .2;
+        dustField.rotation.y = time * .007;
       }
-      group.scale.setScalar(Math.max(0.68, 1 - scroll * 0.06));
+      core.scale.setScalar(Math.max(.69, 1 - scroll * .075));
       renderer.render(scene, camera);
       frame = requestAnimationFrame(draw);
     };
@@ -111,8 +161,13 @@ export function SignalScene() {
       cancelAnimationFrame(frame);
       removeEventListener("pointermove", onPointer);
       removeEventListener("resize", onResize);
-      geometry.dispose();
-      starGeometry.dispose();
+      scene.traverse((object) => {
+        if (object instanceof THREE.Mesh || object instanceof THREE.Line || object instanceof THREE.LineSegments || object instanceof THREE.Points) {
+          object.geometry?.dispose();
+          const materials = Array.isArray(object.material) ? object.material : [object.material];
+          materials.forEach((material) => material?.dispose());
+        }
+      });
       renderer.dispose();
       renderer.domElement.remove();
     };

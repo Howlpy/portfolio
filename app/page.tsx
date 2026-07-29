@@ -1,6 +1,5 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { SignalScene } from "./signal-scene";
 
 const stack = [
@@ -34,15 +33,6 @@ const experience = [
   },
 ];
 
-function Scramble({ words }: { words: string[] }) {
-  const [index, setIndex] = useState(0);
-  useEffect(() => {
-    const timer = window.setInterval(() => setIndex((value) => (value + 1) % words.length), 1800);
-    return () => window.clearInterval(timer);
-  }, [words.length]);
-  return <span className="swap-word" key={words[index]}>{words[index]}</span>;
-}
-
 export default function Home() {
   return (
     <main>
@@ -50,29 +40,37 @@ export default function Home() {
       <div className="noise" aria-hidden="true" />
 
       <nav className="nav" aria-label="Navegación principal">
-        <a className="wordmark" href="#top" aria-label="Inicio de Adrian Gomez">AG<span>/</span></a>
+        <a className="wordmark" href="#top" aria-label="Inicio de Adrian Gomez">HOWL<span>/</span></a>
         <div className="nav-links">
           <a href="#work">Trabajo</a>
           <a href="#about">Perfil</a>
           <a href="#contact">Contacto</a>
         </div>
-        <span className="live"><i /> Cartagena · ES</span>
+        <span className="live"><i /> CORE ONLINE · 37.6°N</span>
       </nav>
 
       <section className="hero" id="top">
-        <div className="hero-kicker"><span>01</span> Software engineer / systems builder</div>
-        <h1>
-          I BUILD<br />
-          <span className="outline">SYSTEMS THAT</span><br />
-          <Scramble words={["THINK.", "CONNECT.", "SCALE.", "HUNT."]} />
+        <div className="hero-kicker"><span>AG / 01</span> Backend engineer · AI systems · threat intelligence</div>
+        <h1 className="core-title">
+          <span className="howl-line">HOWL <small>/</small></span>
+          <span className="signal-line">SIGNAL</span>
+          <span className="core-line">CORE.</span>
         </h1>
         <p className="hero-copy">
-          Backend, inteligencia artificial, automatización y ciberseguridad.
-          Convierto señales complejas en productos que funcionan de verdad.
+          Adrian Gomez construye sistemas que encuentran la señal dentro del ruido:
+          backend, inteligencia artificial, automatización y ciberseguridad.
         </p>
         <div className="hero-actions">
           <a className="magnetic primary" href="#work">Explorar trabajo <span>↘</span></a>
           <a className="magnetic ghost" href="mailto:adriangcpy@gmail.com">Escríbeme <span>↗</span></a>
+        </div>
+        <div className="core-readout" aria-label="Estado del núcleo">
+          <span>{"// SIGNAL COMPRESSION"}</span>
+          <dl><div><dt>RATIO</dt><dd>7:1</dd></div><div><dt>STATUS</dt><dd>ACTIVE</dd></div><div><dt>MODE</dt><dd>BUILD</dd></div></dl>
+          <i><b /><b /><b /><b /><b /><b /><b /></i>
+        </div>
+        <div className="hero-domains" aria-hidden="true">
+          <span>THREAT INTELLIGENCE</span><span>SYSTEMS</span><span>AUTOMATION</span>
         </div>
         <div className="scroll-cue"><span>SCROLL TO DECODE</span><i /></div>
       </section>
