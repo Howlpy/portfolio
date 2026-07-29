@@ -13,13 +13,13 @@ export const metadata: Metadata = {
     siteName: "Adrian Gomez",
     locale: "es_ES",
     type: "website",
-    images: [{ url: "/og.png", width: 1664, height: 936, alt: "Adrián Gómez — Software Engineer" }],
+    images: [{ url: "/og-v2.png", width: 1664, height: 936, alt: "Adrián Gómez — Software Engineer" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Adrián Gómez — Software para problemas sin manual",
     description: "Backend · AI · Automation · CTI",
-    images: ["/og.png"],
+    images: ["/og-v2.png"],
   },
 };
 
