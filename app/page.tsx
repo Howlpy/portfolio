@@ -10,7 +10,12 @@ function Loader() {
   const [done, setDone] = useState(false);
   useEffect(() => { const id = setTimeout(() => setDone(true), 1450); return () => clearTimeout(id); }, []);
   return <div className={`loader ${done ? "loader-done" : ""}`} aria-hidden="true">
-    <div className="loader-name">ADRIÁN GÓMEZ</div><span>PORTFOLIO / 2026</span><b />
+    <div className="loader-grid" />
+    <div className="loader-head"><span>PORTFOLIO / 2026</span><span>CARTAGENA / ES</span><span>37°36′N · 00°59′W</span></div>
+    <div className="loader-name"><span>ADRIÁN</span><strong>GÓMEZ</strong></div>
+    <div className="loader-disciplines"><span>SOFTWARE</span><i /><span>SECURITY</span><i /><span>AI</span></div>
+    <div className="loader-wave">{Array.from({ length: 28 }, (_, i) => <i key={i} style={{ "--i": i } as React.CSSProperties} />)}</div>
+    <div className="loader-foot"><span>HOWL.WTF</span><em>ENTRANDO</em><b /></div>
   </div>;
 }
 
@@ -129,7 +134,7 @@ export default function Home() {
               <div className="landing-preview" />
             </div>
             <div className="intel-graph">
-              <b className="intel-core">CTI<span>LIVE</span></b>
+              <b className="intel-core">OMNISCIUS<span>LIVE CTI</span></b>
               <span className="source s1"><i />RANSOMWARE</span>
               <span className="source s2"><i />TELEGRAM</span>
               <span className="source s3"><i />DARK FORUMS</span>
