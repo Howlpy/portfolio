@@ -1,163 +1,143 @@
 "use client";
 
-import { SignalScene } from "./signal-scene";
+import { useEffect, useRef, useState } from "react";
+import { FabricScene } from "./fabric-scene";
 
-const stack = [
-  "Python", "TypeScript", "Go", "FastAPI", "Django", "Node.js", "React",
-  "Next.js", "SvelteKit", "PostgreSQL", "Redis", "Docker", "Kubernetes",
-  "LLMs", "RAG", "Web3", "OSINT",
-];
+const tools = ["PYTHON", "TYPESCRIPT", "FASTAPI", "NEXT.JS", "GO", "POSTGRESQL", "DOCKER", "KUBERNETES", "LLMs", "OSINT"];
 
-const experience = [
-  {
-    period: "2025—NOW",
-    role: "Full-stack developer",
-    company: "Omniscius / CTI platform",
-    url: "https://omniscius.pro",
-    text: "Threat intelligence built end-to-end: dark-web crawling, ransomware tracking, infostealer logs and real-time correlation across millions of compromised credentials.",
-    tags: ["CTI", "DATA", "INFRA"],
-  },
-  {
-    period: "2024—25",
-    role: "Frontend developer",
-    company: "IntentX",
-    text: "Interfaces and web applications in Next.js and Node.js, with reusable systems and backend integrations.",
-    tags: ["NEXT.JS", "UI SYSTEMS"],
-  },
-  {
-    period: "2023",
-    role: "Backend developer",
-    company: "Chronos Exchange",
-    text: "APIs and Web3 subgraphs for an exchange platform, with on-chain data pipelines and automated indexing.",
-    tags: ["WEB3", "SUBGRAPHS", "APIS"],
-  },
-];
+function MotionLayer() {
+  const cursor = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const reveals = document.querySelectorAll<HTMLElement>("[data-reveal]");
+    const observer = new IntersectionObserver((entries) => entries.forEach((entry) => {
+      if (entry.isIntersecting) entry.target.classList.add("is-visible");
+    }), { threshold: .13 });
+    reveals.forEach((item) => observer.observe(item));
+    const move = (event: PointerEvent) => {
+      if (cursor.current) cursor.current.style.transform = `translate3d(${event.clientX}px,${event.clientY}px,0)`;
+    };
+    addEventListener("pointermove", move, { passive: true });
+    return () => { observer.disconnect(); removeEventListener("pointermove", move); };
+  }, []);
+  return <div className="cursor" ref={cursor} aria-hidden="true"><i /></div>;
+}
+
+function Loader() {
+  const [done, setDone] = useState(false);
+  useEffect(() => { const id = setTimeout(() => setDone(true), 1450); return () => clearTimeout(id); }, []);
+  return <div className={`loader ${done ? "loader-done" : ""}`} aria-hidden="true">
+    <div className="loader-name">ADRIÁN GÓMEZ</div><span>PORTFOLIO / 2026</span><b>00</b>
+  </div>;
+}
 
 export default function Home() {
   return (
     <main>
-      <SignalScene />
+      <Loader />
+      <MotionLayer />
+      <FabricScene />
       <div className="noise" aria-hidden="true" />
 
       <nav className="nav" aria-label="Navegación principal">
-        <a className="wordmark" href="#top" aria-label="Inicio de Adrian Gomez">HOWL<span>/</span></a>
-        <div className="nav-links">
-          <a href="#work">Trabajo</a>
-          <a href="#about">Perfil</a>
-          <a href="#contact">Contacto</a>
-        </div>
-        <span className="live"><i /> CORE ONLINE · 37.6°N</span>
+        <a className="wordmark" href="#top" aria-label="Volver al inicio">AG<span>●</span></a>
+        <div className="nav-links"><a href="#projects">Proyectos</a><a href="#about">Sobre mí</a><a href="#contact">Contacto</a></div>
+        <a className="nav-status" href="mailto:adriangcpy@gmail.com"><i /> Disponible para construir</a>
       </nav>
 
       <section className="hero" id="top">
-        <div className="hero-kicker"><span>AG / 01</span> Backend engineer · AI systems · threat intelligence</div>
-        <h1 className="core-title">
-          <span className="howl-line">HOWL <small>/</small></span>
-          <span className="signal-line">SIGNAL</span>
-          <span className="core-line">CORE.</span>
+        <div className="hero-label"><span>ADRIÁN GÓMEZ</span><span>SOFTWARE ENGINEER</span><span>CARTAGENA / ES</span></div>
+        <h1>
+          <span data-reveal>HAGO SOFTWARE</span>
+          <span className="stroke" data-reveal>PARA PROBLEMAS</span>
+          <span className="violet" data-reveal>SIN MANUAL.</span>
         </h1>
-        <p className="hero-copy">
-          Adrian Gomez construye sistemas que encuentran la señal dentro del ruido:
-          backend, inteligencia artificial, automatización y ciberseguridad.
+        <div className="hero-bottom">
+          <p>Me muevo entre backend, IA, automatización y ciberseguridad. Si algo es lento, repetitivo o difícil de entender, probablemente quiera construir una herramienta para arreglarlo.</p>
+          <a href="#projects">Ver lo que he construido <span>↓</span></a>
+        </div>
+        <div className="coordinate" aria-hidden="true">37°36′N<br />00°59′W</div>
+      </section>
+
+      <section className="about" id="about">
+        <div className="eyebrow">01 / SOBRE MÍ</div>
+        <p data-reveal>
+          No me interesa quedarme en una sola capa. <em>Diseño la arquitectura, escribo el backend, muevo los datos y termino la interfaz.</em> Quiero entender el sistema completo.
         </p>
-        <div className="hero-actions">
-          <a className="magnetic primary" href="#work">Explorar trabajo <span>↘</span></a>
-          <a className="magnetic ghost" href="mailto:adriangcpy@gmail.com">Escríbeme <span>↗</span></a>
+        <div className="about-aside" data-reveal>
+          <span>Mi forma de trabajar</span>
+          <ol><li><b>01</b> Entender antes de añadir</li><li><b>02</b> Construir antes de teorizar</li><li><b>03</b> Automatizar lo repetible</li></ol>
         </div>
-        <div className="core-readout" aria-label="Estado del núcleo">
-          <span>{"// SIGNAL COMPRESSION"}</span>
-          <dl><div><dt>RATIO</dt><dd>7:1</dd></div><div><dt>STATUS</dt><dd>ACTIVE</dd></div><div><dt>MODE</dt><dd>BUILD</dd></div></dl>
-          <i><b /><b /><b /><b /><b /><b /><b /></i>
-        </div>
-        <div className="hero-domains" aria-hidden="true">
-          <span>THREAT INTELLIGENCE</span><span>SYSTEMS</span><span>AUTOMATION</span>
-        </div>
-        <div className="scroll-cue"><span>SCROLL TO DECODE</span><i /></div>
       </section>
 
-      <section className="manifesto" id="about">
-        <div className="section-index">02 / PROFILE</div>
-        <p>
-          Diseño y construyo productos <em>end-to-end</em>: desde la infraestructura y
-          los datos hasta la interfaz. Mi terreno está donde se cruzan los
-          <strong> sistemas distribuidos</strong>, la <strong>IA aplicada</strong> y la
-          <strong> inteligencia de amenazas</strong>.
-        </p>
-        <aside>
-          <span>Operating mode</span>
-          <b>Think in systems.</b>
-          <b>Ship in layers.</b>
-          <b>Automate the rest.</b>
-        </aside>
-      </section>
-
-      <section className="work" id="work">
-        <header className="section-head">
-          <div><span>03</span> Selected trajectory</div>
-          <h2>WORK / <i>FIELD NOTES</i></h2>
+      <section className="projects" id="projects">
+        <header className="projects-intro">
+          <div className="eyebrow">02 / TRABAJO SELECCIONADO</div>
+          <h2 data-reveal>TRES COSAS QUE<br />DECIDÍ CONSTRUIR.</h2>
         </header>
-        <div className="timeline">
-          {experience.map((item, index) => (
-            <article className="job" key={item.company}>
-              <span className="job-number">0{index + 1}</span>
-              <time>{item.period}</time>
-              <div className="job-main">
-                <h3>{item.role}</h3>
-                {item.url ? <a href={item.url} target="_blank" rel="noreferrer">{item.company} ↗</a> : <p className="company">{item.company}</p>}
-                <p>{item.text}</p>
-                <div className="tags">{item.tags.map((tag) => <span key={tag}>{tag}</span>)}</div>
-              </div>
-            </article>
-          ))}
-        </div>
+
+        <article className="case case-cti">
+          <div className="case-copy" data-reveal>
+            <span className="case-number">01 / EN PRODUCCIÓN</span>
+            <h3>OMNISCIUS</h3>
+            <p className="case-lead">Construí una plataforma CTI completa para encontrar relaciones donde otros solo ven ruido.</p>
+            <p>Crawling de dark web, ransomware, logs de infostealers y millones de credenciales comprometidas correlacionadas en tiempo real.</p>
+            <a href="https://omniscius.pro" target="_blank" rel="noreferrer">Visitar proyecto ↗</a>
+          </div>
+          <div className="threat-map" aria-hidden="true">
+            <i className="orbit o1" /><i className="orbit o2" /><i className="orbit o3" />
+            <b className="node n1" /><b className="node n2" /><b className="node n3" /><b className="node n4" /><b className="node n5" />
+            <span>ACTOR_07</span><span>185.***.42</span><span>TTP / 1059</span>
+          </div>
+          <div className="case-stat"><strong>END–TO–END</strong><span>producto · datos · infraestructura</span></div>
+        </article>
+
+        <article className="case case-music">
+          <div className="vinyl" aria-hidden="true"><i /><b /></div>
+          <div className="wave" aria-hidden="true">{Array.from({ length: 44 }, (_, i) => <i key={i} style={{ "--i": i } as React.CSSProperties} />)}</div>
+          <div className="case-copy" data-reveal>
+            <span className="case-number">02 / OPEN SOURCE</span>
+            <h3>BBEAT</h3>
+            <p className="case-lead">Quería mi música en mi servidor y bajo mis reglas. Así que construí el reproductor que me faltaba.</p>
+            <p>FastAPI, SvelteKit, Android, descargas offline e ingesta automática desde Spotify, YouTube y SoundCloud.</p>
+            <a href="https://github.com/Howlpy/bbeat" target="_blank" rel="noreferrer">Ver código ↗</a>
+          </div>
+          <div className="case-stat"><strong>SELF–HOSTED</strong><span>web · móvil · compatible con Subsonic</span></div>
+        </article>
+
+        <article className="case case-talent">
+          <div className="people-flow" aria-hidden="true"><span>DEV</span><span>DATA</span><span>OPS</span><span>AI</span><i /><b>✓</b></div>
+          <div className="case-copy" data-reveal>
+            <span className="case-number">03 / PRODUCTO PROPIO</span>
+            <h3>SOMEONE<br />KNOWS</h3>
+            <p className="case-lead">Estoy convirtiendo un proceso humano y caótico en un flujo de talento más inteligente.</p>
+            <p>Captación, clasificación y conexión de perfiles técnicos con empresas mediante automatización y datos estructurados.</p>
+          </div>
+          <div className="case-stat"><strong>MATCHING</strong><span>TypeScript · automatización · datos</span></div>
+        </article>
       </section>
 
-      <section className="projects">
-        <header className="section-head compact">
-          <div><span>04</span> Independent builds</div>
-          <h2>OWN / <i>SIGNALS</i></h2>
-        </header>
-        <div className="project-grid">
-          <a className="project featured" href="https://github.com/Howlpy/bbeat" target="_blank" rel="noreferrer">
-            <div className="project-top"><span>01</span><span>OPEN SOURCE ↗</span></div>
-            <div className="disc" aria-hidden="true"><i /></div>
-            <div>
-              <h3>BBEAT</h3>
-              <p>Tu música. Tu servidor. Tus reglas.</p>
-              <ul><li>FastAPI</li><li>SvelteKit</li><li>Android</li><li>Subsonic</li></ul>
-            </div>
-          </a>
-          <article className="project talent">
-            <div className="project-top"><span>02</span><span>PRIVATE BUILD</span></div>
-            <div className="talent-mark" aria-hidden="true"><span>SK</span><i /><b>42</b></div>
-            <div>
-              <h3>SOMEONE KNOWS</h3>
-              <p>Automatización inteligente para encontrar y conectar talento técnico.</p>
-              <ul><li>TypeScript</li><li>Automation</li><li>Data</li></ul>
-            </div>
-          </article>
-        </div>
+      <section className="experience">
+        <div className="eyebrow">03 / DE DÓNDE VENGO</div>
+        <div className="experience-line" data-reveal><time>2025—AHORA</time><h3>Omniscius</h3><p>Full-stack · CTI</p></div>
+        <div className="experience-line" data-reveal><time>2024—2025</time><h3>IntentX</h3><p>Frontend · Next.js</p></div>
+        <div className="experience-line" data-reveal><time>2023</time><h3>Chronos Exchange</h3><p>Backend · Web3</p></div>
+        <div className="education" data-reveal><span>DAM</span><span>SMR</span><p>Desarrollo multiplataforma, sistemas y redes. La base que me permite moverme por todo el stack.</p></div>
       </section>
 
-      <section className="stack" aria-label="Tecnologías">
-        <div className="section-index">05 / ARSENAL</div>
-        <div className="ticker">
-          {stack.concat(stack).map((tech, index) => <span key={`${tech}-${index}`}>{tech}<i>✦</i></span>)}
-        </div>
+      <section className="toolbelt" aria-label="Tecnologías">
+        <div className="eyebrow">04 / CON QUÉ TRABAJO</div>
+        <div className="marquee"><div>{tools.concat(tools).map((tool, i) => <span key={`${tool}-${i}`}>{tool}<b>↗</b></span>)}</div></div>
+        <p>No colecciono tecnologías. Elijo la que hace que el producto llegue antes y aguante después.</p>
       </section>
 
       <section className="contact" id="contact">
-        <div className="section-index">06 / OPEN CHANNEL</div>
-        <p>¿Tienes un problema complejo?</p>
-        <a href="mailto:adriangcpy@gmail.com">LET’S MAKE IT<br /><span>WORK.</span> ↗</a>
-        <div className="contact-meta">
-          <span>Disponible para proyectos ambiciosos</span>
-          <a href="https://github.com/Howlpy" target="_blank" rel="noreferrer">GitHub ↗</a>
-          <a href="mailto:adriangcpy@gmail.com">Email ↗</a>
-        </div>
+        <div className="eyebrow">05 / HABLEMOS</div>
+        <p>Tengo debilidad por los problemas difíciles.</p>
+        <a href="mailto:adriangcpy@gmail.com" data-reveal>CUÉNTAME<br /><span>EL TUYO.</span> ↗</a>
+        <div className="contact-meta"><span>Cartagena, España</span><a href="https://github.com/Howlpy" target="_blank" rel="noreferrer">GitHub ↗</a><a href="mailto:adriangcpy@gmail.com">Email ↗</a></div>
       </section>
 
-      <footer><span>© 2026 ADRIAN GOMEZ</span><span>BUILT FROM SIGNAL, NOT NOISE</span><a href="#top">BACK TO TOP ↑</a></footer>
+      <footer><span>© 2026 ADRIÁN GÓMEZ</span><span>HECHO A MANO, NO DESDE UNA PLANTILLA</span><a href="#top">ARRIBA ↑</a></footer>
     </main>
   );
 }
