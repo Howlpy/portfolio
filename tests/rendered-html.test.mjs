@@ -21,7 +21,10 @@ test("server-renders Adrian's portfolio", async () => {
   assert.match(html, /HAGO SOFTWARE/);
   assert.match(html, /SIN MANUAL/);
   assert.match(html, /Omniscius/);
+  assert.match(html, /CTO/);
   assert.match(html, /BBEAT/);
+  assert.match(html, /SOMEONE(?:<br\/>)?KNOWS/);
   assert.match(html, /adriangcpy@gmail\.com/);
+  assert.doesNotMatch(html, /Disponible para construir|PRODUCTO PROPIO/);
   assert.doesNotMatch(html, /codex-preview|Your site is taking shape/);
 });
