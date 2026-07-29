@@ -1,0 +1,8 @@
+.git
+.vinext
+dist
+node_modules
+.wrangler
+.codex-dev.*.log
+.codex-prod.*.log
+tmp

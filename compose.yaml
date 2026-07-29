@@ -1,0 +1,7 @@
+services:
+  portfolio:
+    build: .
+    container_name: howl-portfolio
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:3040:3000"
