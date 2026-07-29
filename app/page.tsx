@@ -75,7 +75,7 @@ export default function Home() {
   const pageClass = (index: number) => `chapter ${index === page ? "is-active" : index < page ? "is-past" : "is-future"}`;
 
   return (
-    <main className={`book direction-${direction}`} onTouchStart={(event) => { touchY.current = event.touches[0]?.clientY ?? null; }} onTouchEnd={(event) => {
+    <main className={`book direction-${direction} ${[1, 2, 3, 5].includes(page) ? "chrome-ink" : ""}`} onTouchStart={(event) => { touchY.current = event.touches[0]?.clientY ?? null; }} onTouchEnd={(event) => {
       if (touchY.current === null) return;
       const distance = touchY.current - (event.changedTouches[0]?.clientY ?? touchY.current);
       if (Math.abs(distance) > 45) goTo(current.current + (distance > 0 ? 1 : -1));
