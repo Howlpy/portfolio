@@ -23,8 +23,11 @@ test("server-renders Adrian's portfolio", async () => {
   assert.match(html, /Omniscius/);
   assert.match(html, /CTO/);
   assert.match(html, /BBEAT/);
+  assert.match(html, /A los 13 me compraron mi primer portátil/);
+  assert.match(html, /RANSOMWARE/);
+  assert.match(html, /BBEAT RADIO/);
   assert.match(html, /SOMEONE(?:<br\/>)?KNOWS/);
   assert.match(html, /adriangcpy@gmail\.com/);
-  assert.doesNotMatch(html, /Disponible para construir|PRODUCTO PROPIO/);
+  assert.doesNotMatch(html, /Disponible para construir|PRODUCTO PROPIO|class="vinyl"/);
   assert.doesNotMatch(html, /codex-preview|Your site is taking shape/);
 });

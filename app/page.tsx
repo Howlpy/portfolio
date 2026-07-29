@@ -100,14 +100,19 @@ export default function Home() {
         </section>
 
         <section className={`${pageClass(1)} chapter-about`} aria-hidden={page !== 1} inert={page !== 1}>
-          <div className="eyebrow">01 / CÓMO PIENSO</div>
-          <p>No me quedo en una sola capa. <em>Diseño la arquitectura, escribo el backend, muevo los datos y termino la interfaz.</em></p>
-          <div className="principles">
-            <span><b>01</b>Entender antes de añadir</span>
-            <span><b>02</b>Construir antes de teorizar</span>
-            <span><b>03</b>Automatizar lo repetible</span>
+          <div className="eyebrow">01 / DE DÓNDE SALE TODO ESTO</div>
+          <div className="about-grid">
+            <h2>SOY ADRIÁN.<span>27 AÑOS / CARTAGENA</span></h2>
+            <div className="about-story">
+              <p>Soy Adrián, tengo 27 años y llevo media vida intentando entender qué ocurre dentro de las máquinas. A los 13 me compraron mi primer portátil. En lugar de limitarme a usarlo, quise saber cómo se relacionaban el hardware y el software, qué podía modificar y por qué se rompían las cosas.</p>
+              <p>De esa curiosidad salieron dos caminos que nunca he separado: <strong>desarrollo y ciberseguridad.</strong> Cuando apareció la IA sentí otra vez que tenía delante algo enorme. Empecé a estudiar cómo funcionan los modelos, cómo se entrenan y cómo convertirlos en herramientas reales. Hoy trabajo en esa intersección: construyo software, investigo sistemas y uso IA para ampliar lo que puedo crear.</p>
+            </div>
           </div>
-          <div className="side-word" aria-hidden="true">FULL STACK</div>
+          <div className="origin-line" aria-label="Recorrido personal">
+            <span><b>2012</b>Primer portátil</span><i />
+            <span><b>DESPUÉS</b>Desarrollo + seguridad</span><i />
+            <span><b>AHORA</b>Software + IA</span>
+          </div>
         </section>
 
         <section className={`${pageClass(2)} chapter-case case-cti`} aria-hidden={page !== 2} inert={page !== 2}>
@@ -118,17 +123,34 @@ export default function Home() {
             <p>Crawling de dark web, ransomware, logs de infostealers y millones de credenciales comprometidas correlacionadas en tiempo real.</p>
             <a href="https://omniscius.pro" target="_blank" rel="noreferrer">Visitar proyecto ↗</a>
           </div>
-          <div className="threat-map" aria-hidden="true">
-            <i className="orbit o1" /><i className="orbit o2" /><i className="orbit o3" />
-            <b className="node n1" /><b className="node n2" /><b className="node n3" /><b className="node n4" /><b className="node n5" />
-            <span>ACTOR_07</span><span>185.***.42</span><span>TTP / 1059</span>
+          <div className="intel-stage" aria-hidden="true">
+            <div className="intel-window">
+              <div className="window-bar"><i /><i /><i /><span>omniscius.pro</span></div>
+              <div className="landing-preview" />
+            </div>
+            <div className="intel-graph">
+              <b className="intel-core">CTI<span>LIVE</span></b>
+              <span className="source s1"><i />RANSOMWARE</span>
+              <span className="source s2"><i />TELEGRAM</span>
+              <span className="source s3"><i />DARK FORUMS</span>
+              <span className="source s4"><i />INFOSTEALERS</span>
+              <span className="source s5"><i />LEAKS</span>
+              <i className="graph-line g1" /><i className="graph-line g2" /><i className="graph-line g3" /><i className="graph-line g4" /><i className="graph-line g5" />
+            </div>
           </div>
           <div className="case-stat"><strong>END–TO–END</strong><span>producto · datos · infraestructura</span></div>
         </section>
 
         <section className={`${pageClass(3)} chapter-case case-music`} aria-hidden={page !== 3} inert={page !== 3}>
-          <div className="vinyl" aria-hidden="true"><i /><b /></div>
-          <div className="wave" aria-hidden="true">{Array.from({ length: 44 }, (_, i) => <i key={i} style={{ "--i": i } as React.CSSProperties} />)}</div>
+          <div className="bbeat-stage" aria-hidden="true">
+            <div className="sonic-ring r1" /><div className="sonic-ring r2" /><div className="sonic-ring r3" />
+            <div className="bbeat-logo" />
+            <div className="bbeat-bars">{Array.from({ length: 32 }, (_, i) => <i key={i} style={{ "--i": i } as React.CSSProperties} />)}</div>
+            <div className="bbeat-player">
+              <span>NOW STREAMING / LOCAL</span><b>BBEAT RADIO</b>
+              <div><i /><em>02:17</em><em>04:06</em></div>
+            </div>
+          </div>
           <div className="case-copy">
             <span className="case-number">03 / OPEN SOURCE</span>
             <h2>BBEAT</h2>
