@@ -31,6 +31,16 @@ function MotionLayer() {
   return <div className="cursor" ref={cursor} aria-hidden="true"><i /></div>;
 }
 
+function ArrowIcon({ direction = "up-right", className = "" }: { direction?: "up-right" | "right" | "left"; className?: string }) {
+  const paths = {
+    "up-right": "M4 14 14 4M7 4h7v7",
+    right: "M3 9h12M10 4l5 5-5 5",
+    left: "M15 9H3M8 4 3 9l5 5",
+  };
+
+  return <svg className={`arrow-icon ${className}`} viewBox="0 0 18 18" aria-hidden="true" focusable="false"><path d={paths[direction]} /></svg>;
+}
+
 export default function Home() {
   const [page, setPage] = useState(0);
   const [direction, setDirection] = useState<"next" | "prev">("next");
@@ -99,7 +109,7 @@ export default function Home() {
           <h1><span>HAGO SOFTWARE</span><span className="stroke">PARA PROBLEMAS</span><span className="violet">SIN MANUAL.</span></h1>
           <div className="hero-bottom">
             <p>Me muevo entre backend, IA, automatización y ciberseguridad. Si algo es lento, repetitivo o difícil de entender, probablemente quiera construir una herramienta para arreglarlo.</p>
-            <button onClick={() => goTo(1)}>Abrir portfolio <span>→</span></button>
+            <button onClick={() => goTo(1)}>Abrir portfolio <ArrowIcon direction="right" /></button>
           </div>
           <div className="coordinate" aria-hidden="true">37°36′N<br />00°59′W</div>
         </section>
@@ -126,7 +136,7 @@ export default function Home() {
             <h2>OMNISCIUS</h2>
             <p className="case-lead">Como CTO, he construido la plataforma CTI de extremo a extremo.</p>
             <p>Crawling de dark web, ransomware, logs de infostealers y millones de credenciales comprometidas correlacionadas en tiempo real.</p>
-            <a href="https://omniscius.pro" target="_blank" rel="noreferrer">Visitar proyecto ↗</a>
+            <a href="https://omniscius.pro" target="_blank" rel="noreferrer">Visitar proyecto <ArrowIcon /></a>
           </div>
           <div className="intel-stage" aria-hidden="true">
             <div className="intel-window">
@@ -161,7 +171,7 @@ export default function Home() {
             <h2>BBEAT</h2>
             <p className="case-lead">Quería mi música en mi servidor y bajo mis reglas. Construí el reproductor que me faltaba.</p>
             <p>FastAPI, SvelteKit, Android, descargas offline e ingesta automática desde Spotify, YouTube y SoundCloud.</p>
-            <a href="https://github.com/Howlpy/bbeat" target="_blank" rel="noreferrer">Ver código ↗</a>
+            <a href="https://github.com/Howlpy/bbeat" target="_blank" rel="noreferrer">Ver código <ArrowIcon /></a>
           </div>
           <div className="case-stat"><strong>SELF–HOSTED</strong><span>web · móvil · compatible con Subsonic</span></div>
         </section>
@@ -184,15 +194,22 @@ export default function Home() {
             <div><time>2024—2025</time><h3>IntentX</h3><p>Frontend · Next.js</p></div>
             <div><time>2023</time><h3>Chronos Exchange</h3><p>Backend · Web3</p></div>
           </div>
-          <div className="tool-strip">{tools.concat(tools).map((tool, index) => <span key={`${tool}-${index}`}>{tool}<b>↗</b></span>)}</div>
-          <p className="tool-note">No colecciono tecnologías. Elijo la que hace que el producto llegue antes y aguante después.</p>
+          <div className="experience-stack">
+            <div className="stack-heading">
+              <span>STACK / HERRAMIENTAS</span>
+              <p>No colecciono tecnologías. Elijo la que hace que el producto llegue antes y aguante después.</p>
+            </div>
+            <div className="tech-grid">
+              {tools.map((tool, index) => <span key={tool}><b>{String(index + 1).padStart(2, "0")}</b>{tool}</span>)}
+            </div>
+          </div>
         </section>
 
         <section className={`${pageClass(6)} chapter-contact`} aria-hidden={page !== 6} inert={page !== 6}>
           <div className="eyebrow">06 / HABLEMOS</div>
           <p>Tengo debilidad por los problemas difíciles.</p>
-          <a href="mailto:adriangcpy@gmail.com">CUÉNTAME<br /><span>EL TUYO.</span> ↗</a>
-          <div className="contact-meta"><span>Cartagena, España</span><a href="https://github.com/Howlpy" target="_blank" rel="noreferrer">GitHub ↗</a><a href="mailto:adriangcpy@gmail.com">Email ↗</a></div>
+          <a href="mailto:adriangcpy@gmail.com">CUÉNTAME<br /><span>EL TUYO.</span> <ArrowIcon /></a>
+          <div className="contact-meta"><span>Cartagena, España</span><a href="https://github.com/Howlpy" target="_blank" rel="noreferrer">GitHub <ArrowIcon /></a><a href="mailto:adriangcpy@gmail.com">Email <ArrowIcon /></a></div>
         </section>
       </div>
 
@@ -200,9 +217,9 @@ export default function Home() {
         {chapters.map((chapter, index) => <button key={chapter} className={index === page ? "active" : ""} onClick={() => goTo(index)} aria-label={`Ir a ${chapter}`}><i /><span>{chapter}</span></button>)}
       </aside>
       <div className="book-controls">
-        <button onClick={() => goTo(page - 1)} disabled={page === 0} aria-label="Capítulo anterior">←</button>
+        <button onClick={() => goTo(page - 1)} disabled={page === 0} aria-label="Capítulo anterior"><ArrowIcon direction="left" /></button>
         <span>SCROLL · SWIPE · FLECHAS</span>
-        <button onClick={() => goTo(page + 1)} disabled={page === chapters.length - 1} aria-label="Capítulo siguiente">→</button>
+        <button onClick={() => goTo(page + 1)} disabled={page === chapters.length - 1} aria-label="Capítulo siguiente"><ArrowIcon direction="right" /></button>
       </div>
     </main>
   );

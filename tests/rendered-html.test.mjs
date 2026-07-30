@@ -28,6 +28,9 @@ test("server-renders Adrian's portfolio", async () => {
   assert.match(html, /BBEAT RADIO/);
   assert.match(html, /SOMEONE(?:<br\/>)?KNOWS/);
   assert.match(html, /adriangcpy@gmail\.com/);
+  assert.match(html, /class="tech-grid"/);
+  assert.match(html, /class="arrow-icon/);
+  assert.doesNotMatch(html, /class="tool-strip"/);
   assert.doesNotMatch(html, /Disponible para construir|PRODUCTO PROPIO|class="vinyl"/);
   assert.doesNotMatch(html, /codex-preview|Your site is taking shape/);
 });
