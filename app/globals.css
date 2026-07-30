@@ -34,3 +34,4 @@
 
 .chapter-hero h1>span:first-child{color:var(--paper);-webkit-text-fill-color:var(--paper);-webkit-text-stroke:0 transparent}.chapter-hero h1 .stroke{-webkit-text-fill-color:transparent}
 @media(max-width:800px){.chapter-hero h1{line-height:.86;letter-spacing:-.055em}.chapter-hero h1 .stroke{font-size:.79em;line-height:1.02;letter-spacing:-.04em}.chapter-hero h1 .violet{line-height:.88}.about-grid h2{line-height:.87;letter-spacing:-.055em}.chapter-case h2{line-height:.87;letter-spacing:-.055em}.chapter-contact>a{line-height:.86;letter-spacing:-.055em}}
+@media(max-width:800px) and (max-height:720px){.chapter{padding-bottom:56px}}
