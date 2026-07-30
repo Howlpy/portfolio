@@ -23,7 +23,7 @@ test("server-renders Adrian's portfolio", async () => {
   assert.match(html, /Omniscius/);
   assert.match(html, /CTO/);
   assert.match(html, /BBEAT/);
-  assert.match(html, /A los 13 me compraron mi primer portátil/);
+  assert.match(html, /Mi primer portátil acabó convertido en laboratorio/);
   assert.match(html, /RANSOMWARE/);
   assert.match(html, /BBEAT RADIO/);
   assert.match(html, /SOMEONE(?:<br\/>)?KNOWS/);

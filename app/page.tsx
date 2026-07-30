@@ -106,7 +106,14 @@ export default function Home() {
         <section className={`${pageClass(0)} chapter-hero`} aria-hidden={page !== 0} inert={page !== 0}>
           <FabricScene />
           <div className="hero-label"><span>ADRIÁN GÓMEZ</span><span>SOFTWARE ENGINEER</span><span>CARTAGENA / ES</span></div>
-          <h1><span>HAGO SOFTWARE</span><span className="stroke">PARA PROBLEMAS</span><span className="violet">SIN MANUAL.</span></h1>
+          <h1>
+            <span>HAGO SOFTWARE</span>
+            <span className="stroke stroke-desktop">PARA PROBLEMAS</span>
+            <svg className="stroke-mobile" viewBox="0 0 900 112" role="img" aria-label="PARA PROBLEMAS">
+              <text x="2" y="94" textLength="896" lengthAdjust="spacingAndGlyphs" vectorEffect="non-scaling-stroke">PARA PROBLEMAS</text>
+            </svg>
+            <span className="violet">SIN MANUAL.</span>
+          </h1>
           <div className="hero-bottom">
             <p>Me muevo entre backend, IA, automatización y ciberseguridad. Si algo es lento, repetitivo o difícil de entender, probablemente quiera construir una herramienta para arreglarlo.</p>
             <button onClick={() => goTo(1)}>Abrir portfolio <ArrowIcon direction="right" /></button>
@@ -119,8 +126,8 @@ export default function Home() {
           <div className="about-grid">
             <h2>SOY ADRIÁN.<span>27 AÑOS / CARTAGENA</span></h2>
             <div className="about-story">
-              <p>Soy Adrián, tengo 27 años y llevo media vida intentando entender qué ocurre dentro de las máquinas. A los 13 me compraron mi primer portátil. En lugar de limitarme a usarlo, quise saber cómo se relacionaban el hardware y el software, qué podía modificar y por qué se rompían las cosas.</p>
-              <p>De esa curiosidad salieron dos caminos que nunca he separado: <strong>desarrollo y ciberseguridad.</strong> Cuando apareció la IA sentí otra vez que tenía delante algo enorme. Empecé a estudiar cómo funcionan los modelos, cómo se entrenan y cómo convertirlos en herramientas reales. Hoy trabajo en esa intersección: construyo software, investigo sistemas y uso IA para ampliar lo que puedo crear.</p>
+              <p>Soy Adrián, tengo 27 años y llevo desde los 13 metiendo mano a todo lo que mezcla hardware y software. Mi primer portátil acabó convertido en laboratorio: desmontaba, rompía cosas, las arreglaba y aprendía a construir las mías. Ahí entendí que no quería limitarme a usar tecnología; quería crearla.</p>
+              <p>De ahí salieron dos caminos que nunca he separado: <strong>desarrollo y ciberseguridad.</strong> Cuando apareció la IA sentí otra vez que tenía delante algo enorme. Empecé a estudiar cómo funcionan los modelos, cómo se entrenan y cómo convertirlos en herramientas reales. Hoy trabajo en esa intersección: construyo software, investigo sistemas y uso IA para ampliar lo que puedo crear.</p>
             </div>
           </div>
           <div className="origin-line" aria-label="Recorrido personal">
