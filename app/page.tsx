@@ -106,14 +106,7 @@ export default function Home() {
         <section className={`${pageClass(0)} chapter-hero`} aria-hidden={page !== 0} inert={page !== 0}>
           <FabricScene />
           <div className="hero-label"><span>ADRIÁN GÓMEZ</span><span>SOFTWARE ENGINEER</span><span>CARTAGENA / ES</span></div>
-          <h1>
-            <span>HAGO SOFTWARE</span>
-            <span className="stroke stroke-desktop">PARA PROBLEMAS</span>
-            <svg className="stroke-mobile" viewBox="0 0 900 112" role="img" aria-label="PARA PROBLEMAS">
-              <text x="2" y="94" textLength="896" lengthAdjust="spacingAndGlyphs" vectorEffect="non-scaling-stroke">PARA PROBLEMAS</text>
-            </svg>
-            <span className="violet">SIN MANUAL.</span>
-          </h1>
+          <h1><span>HAGO SOFTWARE</span><span className="stroke">PARA PROBLEMAS</span><span className="violet">SIN MANUAL.</span></h1>
           <div className="hero-bottom">
             <p>Me muevo entre backend, IA, automatización y ciberseguridad. Si algo es lento, repetitivo o difícil de entender, probablemente quiera construir una herramienta para arreglarlo.</p>
             <button onClick={() => goTo(1)}>Abrir portfolio <ArrowIcon direction="right" /></button>

@@ -31,6 +31,7 @@ test("server-renders Adrian's portfolio", async () => {
   assert.match(html, /class="tech-grid"/);
   assert.match(html, /class="arrow-icon/);
   assert.doesNotMatch(html, /class="tool-strip"/);
+  assert.doesNotMatch(html, /stroke-mobile/);
   assert.doesNotMatch(html, /Disponible para construir|PRODUCTO PROPIO|class="vinyl"/);
   assert.doesNotMatch(html, /codex-preview|Your site is taking shape/);
 });
