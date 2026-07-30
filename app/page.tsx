@@ -4,7 +4,18 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { FabricScene } from "./fabric-scene";
 
 const chapters = ["Portada", "Enfoque", "Omniscius", "Bbeat", "Someone Knows", "Trayectoria", "Contacto"];
-const tools = ["PYTHON", "TYPESCRIPT", "FASTAPI", "NEXT.JS", "GO", "POSTGRESQL", "DOCKER", "KUBERNETES", "LLMs", "OSINT"];
+const tools = [
+  { name: "PYTHON", group: "LANG" }, { name: "TYPESCRIPT", group: "LANG" }, { name: "JAVASCRIPT", group: "LANG" },
+  { name: "GO", group: "LANG" }, { name: "C++", group: "LANG" }, { name: "FASTAPI", group: "BACK" },
+  { name: "DJANGO", group: "BACK" }, { name: "NODE.JS", group: "BACK" }, { name: "WEBSOCKETS", group: "BACK" },
+  { name: "WEB3", group: "BACK" }, { name: "REACT", group: "FRONT" }, { name: "NEXT.JS", group: "FRONT" },
+  { name: "SVELTEKIT", group: "FRONT" }, { name: "TAILWIND", group: "FRONT" }, { name: "PWA", group: "FRONT" },
+  { name: "POSTGRESQL", group: "DATA" }, { name: "SQLITE", group: "DATA" }, { name: "MONGODB", group: "DATA" },
+  { name: "REDIS", group: "DATA" }, { name: "SUBGRAPHS", group: "DATA" }, { name: "DOCKER", group: "OPS" },
+  { name: "KUBERNETES", group: "OPS" }, { name: "LINUX", group: "OPS" }, { name: "NGINX", group: "OPS" },
+  { name: "CI/CD", group: "OPS" }, { name: "LLMs", group: "AI + SEC" }, { name: "RAG", group: "AI + SEC" },
+  { name: "AI AGENTS", group: "AI + SEC" }, { name: "OSINT", group: "AI + SEC" }, { name: "CTI", group: "AI + SEC" },
+];
 
 function Loader() {
   const [done, setDone] = useState(false);
@@ -200,7 +211,7 @@ export default function Home() {
               <p>No colecciono tecnologías. Elijo la que hace que el producto llegue antes y aguante después.</p>
             </div>
             <div className="tech-grid">
-              {tools.map((tool, index) => <span key={tool}><b>{String(index + 1).padStart(2, "0")}</b>{tool}</span>)}
+              {tools.map((tool, index) => <span key={tool.name}><b>{String(index + 1).padStart(2, "0")} / {tool.group}</b>{tool.name}</span>)}
             </div>
           </div>
         </section>
