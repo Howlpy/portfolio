@@ -91,7 +91,7 @@ export function FabricScene() {
       uniforms.uPointer.value.lerp(pointer, .035);
       const scroll = scrollY / Math.max(innerHeight, 1);
       group.position.x += ((innerWidth > 800 ? 2.7 : .65) - pointer.x * .14 - group.position.x) * .025;
-      group.position.y += ((innerWidth > 800 ? .15 : -.55) + pointer.y * .12 - scroll * .72 - group.position.y) * .025;
+      group.position.y += ((innerWidth > 800 ? .15 : -1.3) + pointer.y * .12 - scroll * .72 - group.position.y) * .025;
       if (!reduced) { group.rotation.z = Math.sin(time * .18) * .04; dust.rotation.y = time * .006; }
       group.scale.setScalar(Math.max(.7, 1 - scroll * .08));
       renderer.render(scene, camera); frame = requestAnimationFrame(draw);
