@@ -31,6 +31,7 @@ test("server-renders Adrian's portfolio", async () => {
   assert.match(html, /class="tech-grid"/);
   assert.match(html, /DJANGO/);
   assert.match(html, /AI AGENTS/);
+  assert.match(html, /class="swipe-cue"/);
   assert.match(html, /class="arrow-icon/);
   assert.doesNotMatch(html, /class="tool-strip"/);
   assert.doesNotMatch(html, /stroke-mobile/);

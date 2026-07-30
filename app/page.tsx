@@ -42,11 +42,12 @@ function MotionLayer() {
   return <div className="cursor" ref={cursor} aria-hidden="true"><i /></div>;
 }
 
-function ArrowIcon({ direction = "up-right", className = "" }: { direction?: "up-right" | "right" | "left"; className?: string }) {
+function ArrowIcon({ direction = "up-right", className = "" }: { direction?: "up-right" | "right" | "left" | "down"; className?: string }) {
   const paths = {
     "up-right": "M4 14 14 4M7 4h7v7",
     right: "M3 9h12M10 4l5 5-5 5",
     left: "M15 9H3M8 4 3 9l5 5",
+    down: "M9 3v12M4 10l5 5 5-5",
   };
 
   return <svg className={`arrow-icon ${className}`} viewBox="0 0 18 18" aria-hidden="true" focusable="false"><path d={paths[direction]} /></svg>;
@@ -123,6 +124,7 @@ export default function Home() {
             <button onClick={() => goTo(1)}>Abrir portfolio <ArrowIcon direction="right" /></button>
           </div>
           <div className="coordinate" aria-hidden="true">37°36′N<br />00°59′W</div>
+          <div className="swipe-cue" aria-hidden="true"><span>SWIPE</span><ArrowIcon direction="down" /></div>
         </section>
 
         <section className={`${pageClass(1)} chapter-about`} aria-hidden={page !== 1} inert={page !== 1}>
