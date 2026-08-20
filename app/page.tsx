@@ -202,10 +202,7 @@ export default function Home() {
           <div className="garm-stage" aria-hidden="true">
             <div className="garm-window">
               <div className="garm-window-bar"><i /><i /><span>MIKOSHI / GARM CONTROL PLANE</span><b>● LIVE</b></div>
-              <div className="garm-screen">
-                <i className="garm-redact gr-side-today" /><i className="garm-redact gr-side-month" />
-                <i className="garm-redact gr-main-today" /><i className="garm-redact gr-main-month" />
-              </div>
+              <div className="garm-screen" />
             </div>
             <span className="garm-chip gc1">CONTEXT / MEMORY</span>
             <span className="garm-chip gc2">POLICY / APPROVAL</span>
