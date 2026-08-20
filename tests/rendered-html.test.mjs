@@ -26,7 +26,7 @@ test("server-renders Adrian's portfolio", async () => {
   assert.match(html, /Mi primer portátil acabó convertido en laboratorio/);
   assert.match(html, /RANSOMWARE/);
   assert.match(html, /BBEAT RADIO/);
-  assert.match(html, /SOMEONE(?:<br\/>)?KNOWS/);
+  assert.doesNotMatch(html, /SOMEONE(?:<br\/>)?KNOWS/);
   assert.match(html, /adriangcpy@gmail\.com/);
   assert.match(html, /class="tech-grid"/);
   assert.match(html, /DJANGO/);

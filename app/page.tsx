@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { FabricScene } from "./fabric-scene";
 
-const chapters = ["Portada", "Enfoque", "Omniscius", "Bbeat", "Someone Knows", "Trayectoria", "Contacto"];
+const chapters = ["Portada", "Enfoque", "Omniscius", "Bbeat", "Trayectoria", "Contacto"];
 const tools = [
   { name: "PYTHON", group: "LANG" }, { name: "TYPESCRIPT", group: "LANG" }, { name: "JAVASCRIPT", group: "LANG" },
   { name: "GO", group: "LANG" }, { name: "C++", group: "LANG" }, { name: "FASTAPI", group: "BACK" },
@@ -97,7 +97,7 @@ export default function Home() {
   const pageClass = (index: number) => `chapter ${index === page ? "is-active" : index < page ? "is-past" : "is-future"}`;
 
   return (
-    <main className={`book direction-${direction} ${[1, 2, 3, 5].includes(page) ? "chrome-ink" : ""}`} onTouchStart={(event) => { touchY.current = event.touches[0]?.clientY ?? null; }} onTouchEnd={(event) => {
+    <main className={`book page-${page} direction-${direction} ${[1, 2, 3, 4].includes(page) ? "chrome-ink" : ""}`} onTouchStart={(event) => { touchY.current = event.touches[0]?.clientY ?? null; }} onTouchEnd={(event) => {
       if (touchY.current === null) return;
       const distance = touchY.current - (event.changedTouches[0]?.clientY ?? touchY.current);
       if (Math.abs(distance) > 45) goTo(current.current + (distance > 0 ? 1 : -1));
@@ -189,19 +189,8 @@ export default function Home() {
           <div className="case-stat"><strong>SELF–HOSTED</strong><span>web · móvil · compatible con Subsonic</span></div>
         </section>
 
-        <section className={`${pageClass(4)} chapter-case case-talent`} aria-hidden={page !== 4} inert={page !== 4}>
-          <div className="people-flow" aria-hidden="true"><span>DEV</span><span>DATA</span><span>OPS</span><span>AI</span><i /><b>✓</b></div>
-          <div className="case-copy">
-            <span className="case-number">04 / PRODUCTO · AUTOMATIZACIÓN</span>
-            <h2>SOMEONE<br />KNOWS</h2>
-            <p className="case-lead">He construido la parte técnica que convierte un proceso humano y caótico en un flujo de talento más inteligente.</p>
-            <p>Captación, clasificación y conexión de perfiles técnicos con empresas mediante automatización y datos estructurados.</p>
-          </div>
-          <div className="case-stat"><strong>MATCHING</strong><span>TypeScript · automatización · datos</span></div>
-        </section>
-
-        <section className={`${pageClass(5)} chapter-experience`} aria-hidden={page !== 5} inert={page !== 5}>
-          <div className="eyebrow">05 / TRAYECTORIA</div>
+        <section className={`${pageClass(4)} chapter-experience`} aria-hidden={page !== 4} inert={page !== 4}>
+          <div className="eyebrow">04 / TRAYECTORIA</div>
           <div className="timeline">
             <div><time>2025—AHORA</time><h3>Omniscius</h3><p>CTO · CTI</p></div>
             <div><time>2024—2025</time><h3>IntentX</h3><p>Frontend · Next.js</p></div>
@@ -218,8 +207,8 @@ export default function Home() {
           </div>
         </section>
 
-        <section className={`${pageClass(6)} chapter-contact`} aria-hidden={page !== 6} inert={page !== 6}>
-          <div className="eyebrow">06 / HABLEMOS</div>
+        <section className={`${pageClass(5)} chapter-contact`} aria-hidden={page !== 5} inert={page !== 5}>
+          <div className="eyebrow">05 / HABLEMOS</div>
           <p>Tengo debilidad por los problemas difíciles.</p>
           <a href="mailto:adriangcpy@gmail.com">CUÉNTAME<br /><span>EL TUYO.</span> <ArrowIcon /></a>
           <div className="contact-meta"><span>Cartagena, España</span><a href="https://github.com/Howlpy" target="_blank" rel="noreferrer">GitHub <ArrowIcon /></a><a href="mailto:adriangcpy@gmail.com">Email <ArrowIcon /></a></div>
@@ -229,11 +218,11 @@ export default function Home() {
       <aside className="chapter-rail" aria-label="Capítulos">
         {chapters.map((chapter, index) => <button key={chapter} className={index === page ? "active" : ""} onClick={() => goTo(index)} aria-label={`Ir a ${chapter}`}><i /><span>{chapter}</span></button>)}
       </aside>
-      <div className="book-controls">
-        <button onClick={() => goTo(page - 1)} disabled={page === 0} aria-label="Capítulo anterior"><ArrowIcon direction="left" /></button>
+      {page === 0 && <div className="book-controls">
+        <button disabled aria-label="Capítulo anterior"><ArrowIcon direction="left" /></button>
         <span>SCROLL · SWIPE · FLECHAS</span>
-        <button onClick={() => goTo(page + 1)} disabled={page === chapters.length - 1} aria-label="Capítulo siguiente"><ArrowIcon direction="right" /></button>
-      </div>
+        <button onClick={() => goTo(1)} aria-label="Capítulo siguiente"><ArrowIcon direction="right" /></button>
+      </div>}
     </main>
   );
 }
