@@ -194,19 +194,22 @@ export default function Home() {
             <span className="case-number">04 / PRIVATE SYSTEM · LIVE</span>
             <h2>GARM</h2>
             <p className="case-lead">No quería otro chatbot. Construí un sistema que recuerda, decide, ejecuta y sabe cuándo pedir permiso.</p>
-            <p>Harness propio en Python: routing de modelos, tools, skills, subagentes, compactación, memoria, presupuestos y trazas. WhatsApp, Telegram y CLI comparten el mismo núcleo y un registro modular de packs.</p>
-            <div className="garm-proof" aria-label="Datos del proyecto">
-              <span><b>85</b> TESTS</span><span><b>18</b> ADRs</span><span><b>09</b> PACKS</span><span><b>$20</b> HARD CAP</span>
+            <p>Harness propio en Python: routing de modelos, tools, skills, subagentes, compactación, memoria, presupuestos y trazas. WhatsApp, Telegram y CLI comparten el mismo núcleo y capacidades modulares.</p>
+            <div className="garm-proof" aria-label="Cómo está construido">
+              <span><b>PYTHON</b>NÚCLEO PROPIO</span><span><b>DDD</b>HEXAGONAL</span><span><b>SQLITE</b>PERSISTENCIA</span><span><b>WS · SSE</b>TIEMPO REAL</span>
             </div>
           </div>
           <div className="garm-stage" aria-hidden="true">
             <div className="garm-window">
               <div className="garm-window-bar"><i /><i /><span>MIKOSHI / GARM CONTROL PLANE</span><b>● LIVE</b></div>
-              <div className="garm-screen" />
+              <div className="garm-screen">
+                <i className="garm-redact gr-side-today" /><i className="garm-redact gr-side-month" />
+                <i className="garm-redact gr-main-today" /><i className="garm-redact gr-main-month" />
+              </div>
             </div>
             <span className="garm-chip gc1">CONTEXT / MEMORY</span>
             <span className="garm-chip gc2">POLICY / APPROVAL</span>
-            <span className="garm-chip gc3">TRACE / COST</span>
+            <span className="garm-chip gc3">TRACE / AUDIT</span>
           </div>
           <div className="garm-flow" aria-label="Flujo del harness">
             {['CONTEXT', 'ROUTER', 'MODEL', 'TOOLS', 'POLICY', 'TRACE'].map((step, index) => <span key={step}><b>{String(index + 1).padStart(2, '0')}</b>{step}</span>)}

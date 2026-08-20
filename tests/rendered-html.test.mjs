@@ -28,9 +28,12 @@ test("server-renders Adrian's portfolio", async () => {
   assert.match(html, /BBEAT RADIO/);
   assert.match(html, /GARM/);
   assert.match(html, /Harness propio en Python/);
+  assert.match(html, /NÚCLEO PROPIO/);
+  assert.match(html, /HEXAGONAL/);
   assert.match(html, /CONTEXT/);
   assert.match(html, /POLICY/);
   assert.match(html, /TRACE/);
+  assert.doesNotMatch(html, /HARD CAP|>TESTS<|>ADRs<|>PACKS</);
   assert.doesNotMatch(html, /SOMEONE(?:<br\/>)?KNOWS/);
   assert.match(html, /adriangcpy@gmail\.com/);
   assert.match(html, /class="tech-grid"/);
