@@ -58,3 +58,18 @@
 
 /* Bust cached dashboard captures when the redacted asset changes. */
 .garm-screen{background-image:url('/garm-panel.png?v=3')}
+
+/* Mobile Garm: make the system legible before making it decorative. */
+@media(max-width:800px){
+  .garm-proof{grid-template-columns:repeat(2,1fr);margin-top:14px}
+  .garm-proof span{min-height:42px;padding:6px 7px;font-size:5.5px}
+  .garm-proof b{font-size:14px}
+  .garm-stage{left:12px;right:12px;bottom:36px;height:min(37vh,312px)}
+  .garm-screen{background-size:145% auto;background-position:23% top}
+  .garm-chip{display:none}
+  .garm-window-bar span{font-size:0}
+  .garm-window-bar span:after{content:"GARM / CONTROL";font:700 5.5px/1 monospace;letter-spacing:.1em}
+}
+@media(max-width:800px) and (max-height:720px){
+  .garm-stage{top:54%;bottom:auto;height:min(34vh,236px)}
+}
