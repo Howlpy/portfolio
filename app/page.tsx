@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { FabricScene } from "./fabric-scene";
 
-const chapters = ["Portada", "Enfoque", "Omniscius", "Bbeat", "Trayectoria", "Contacto"];
+const chapters = ["Portada", "Enfoque", "Omniscius", "Bbeat", "Garm", "Trayectoria", "Contacto"];
 const tools = [
   { name: "PYTHON", group: "LANG" }, { name: "TYPESCRIPT", group: "LANG" }, { name: "JAVASCRIPT", group: "LANG" },
   { name: "GO", group: "LANG" }, { name: "C++", group: "LANG" }, { name: "FASTAPI", group: "BACK" },
@@ -97,7 +97,7 @@ export default function Home() {
   const pageClass = (index: number) => `chapter ${index === page ? "is-active" : index < page ? "is-past" : "is-future"}`;
 
   return (
-    <main className={`book page-${page} direction-${direction} ${[1, 2, 3, 4].includes(page) ? "chrome-ink" : ""}`} onTouchStart={(event) => { touchY.current = event.touches[0]?.clientY ?? null; }} onTouchEnd={(event) => {
+    <main className={`book page-${page} direction-${direction} ${[1, 2, 3, 5].includes(page) ? "chrome-ink" : ""}`} onTouchStart={(event) => { touchY.current = event.touches[0]?.clientY ?? null; }} onTouchEnd={(event) => {
       if (touchY.current === null) return;
       const distance = touchY.current - (event.changedTouches[0]?.clientY ?? touchY.current);
       if (Math.abs(distance) > 45) goTo(current.current + (distance > 0 ? 1 : -1));
@@ -189,8 +189,32 @@ export default function Home() {
           <div className="case-stat"><strong>SELF–HOSTED</strong><span>web · móvil · compatible con Subsonic</span></div>
         </section>
 
-        <section className={`${pageClass(4)} chapter-experience`} aria-hidden={page !== 4} inert={page !== 4}>
-          <div className="eyebrow">04 / TRAYECTORIA</div>
+        <section className={`${pageClass(4)} chapter-case case-garm`} aria-hidden={page !== 4} inert={page !== 4}>
+          <div className="case-copy">
+            <span className="case-number">04 / PRIVATE SYSTEM · LIVE</span>
+            <h2>GARM</h2>
+            <p className="case-lead">No quería otro chatbot. Construí un sistema que recuerda, decide, ejecuta y sabe cuándo pedir permiso.</p>
+            <p>Harness propio en Python: routing de modelos, tools, skills, subagentes, compactación, memoria, presupuestos y trazas. WhatsApp, Telegram y CLI comparten el mismo núcleo y un registro modular de packs.</p>
+            <div className="garm-proof" aria-label="Datos del proyecto">
+              <span><b>85</b> TESTS</span><span><b>18</b> ADRs</span><span><b>09</b> PACKS</span><span><b>$20</b> HARD CAP</span>
+            </div>
+          </div>
+          <div className="garm-stage" aria-hidden="true">
+            <div className="garm-window">
+              <div className="garm-window-bar"><i /><i /><span>MIKOSHI / GARM CONTROL PLANE</span><b>● LIVE</b></div>
+              <div className="garm-screen" />
+            </div>
+            <span className="garm-chip gc1">CONTEXT / MEMORY</span>
+            <span className="garm-chip gc2">POLICY / APPROVAL</span>
+            <span className="garm-chip gc3">TRACE / COST</span>
+          </div>
+          <div className="garm-flow" aria-label="Flujo del harness">
+            {['CONTEXT', 'ROUTER', 'MODEL', 'TOOLS', 'POLICY', 'TRACE'].map((step, index) => <span key={step}><b>{String(index + 1).padStart(2, '0')}</b>{step}</span>)}
+          </div>
+        </section>
+
+        <section className={`${pageClass(5)} chapter-experience`} aria-hidden={page !== 5} inert={page !== 5}>
+          <div className="eyebrow">05 / TRAYECTORIA</div>
           <div className="timeline">
             <div><time>2025—AHORA</time><h3>Omniscius</h3><p>CTO · CTI</p></div>
             <div><time>2024—2025</time><h3>IntentX</h3><p>Frontend · Next.js</p></div>
@@ -207,8 +231,8 @@ export default function Home() {
           </div>
         </section>
 
-        <section className={`${pageClass(5)} chapter-contact`} aria-hidden={page !== 5} inert={page !== 5}>
-          <div className="eyebrow">05 / HABLEMOS</div>
+        <section className={`${pageClass(6)} chapter-contact`} aria-hidden={page !== 6} inert={page !== 6}>
+          <div className="eyebrow">06 / HABLEMOS</div>
           <p>Tengo debilidad por los problemas difíciles.</p>
           <a href="mailto:adriangcpy@gmail.com">CUÉNTAME<br /><span>EL TUYO.</span> <ArrowIcon /></a>
           <div className="contact-meta"><span>Cartagena, España</span><a href="https://github.com/Howlpy" target="_blank" rel="noreferrer">GitHub <ArrowIcon /></a><a href="mailto:adriangcpy@gmail.com">Email <ArrowIcon /></a></div>
