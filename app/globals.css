@@ -55,3 +55,6 @@
 /* Keep the stack typography tied to available vertical space, not just width. */
 @media(min-width:801px){.chapter-experience{--skill-size:clamp(12px,1.55vh,14px)}.chapter-experience .tech-grid span{font-size:var(--skill-size)}}
 @media(min-width:801px) and (max-width:1100px){.chapter-experience{--skill-size:clamp(11px,1.42vh,12px)}}
+
+/* Bust cached dashboard captures when the redacted asset changes. */
+.garm-screen{background-image:url('/garm-panel.png?v=3')}
